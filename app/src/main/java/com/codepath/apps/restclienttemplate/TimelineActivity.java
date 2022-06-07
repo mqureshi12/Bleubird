@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -65,5 +67,16 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.i(TAG, "onFailure!" + response, throwable);
             }
         });
+    }
+
+    public void onLogoutButton(View view) {
+        // Forget who's logged in
+        TwitterApp.getRestClient(this).clearAccessToken();
+
+        // Navigate backwards to login screen
+        Intent i = new Intent(this, LoginActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // This makes sure the back botton won't work
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
     }
 }
