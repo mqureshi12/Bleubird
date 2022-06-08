@@ -19,6 +19,7 @@ public class Tweet {
     public User user;
     public String imageUrl;
     public String timeStamp;
+    public String id;
 
     // Empty constructor needed by Parceler library
     public Tweet() {}
@@ -40,10 +41,12 @@ public class Tweet {
             if (media.length() > 0){
                 tweet.imageUrl = media.getJSONObject(0).getString("media_url").toString();
             }
+        } else {
+            tweet.imageUrl = null;
         }
 
         tweet.timeStamp = DateUtility.getRelativeTimeAgo(tweet.getCreatedAt());
-
+        tweet.id = jsonObject.getString("id");
         return tweet;
     }
 

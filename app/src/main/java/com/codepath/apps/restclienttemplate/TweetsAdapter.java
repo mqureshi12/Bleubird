@@ -1,12 +1,18 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,14 +20,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.utilities.DateUtility;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.w3c.dom.Text;
 
 import java.util.List;
 
+import okhttp3.Headers;
+
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
 
     private static final String TAG = "TweetsAdapter";
+    public static final int MAX_TWEET_LENGTH = 280;
 
     Context context;
     List<Tweet> tweets;
@@ -67,13 +77,17 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     }
 
     // Define a viewholder
-    public  class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements android.view.View.OnClickListener {
 
         ImageView ivProfileImage;
         ImageView ivTweetImage;
         TextView tvBody;
         TextView tvScreenName;
         TextView tvTimeStamp;
+        Tweet tweet;
+        EditText etReply;
+        Button btnReply;
+        ImageButton ibSend;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,14 +96,80 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvTimeStamp = itemView.findViewById(R.id.timestamp);
+
+            etReply = itemView.findViewById(R.id.etReply);
+            btnReply = itemView.findViewById(R.id.btnReply);
+            ibSend = itemView.findViewById(R.id.ibSend);
+
+            btnReply.setOnClickListener(this);
+            ibSend.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
         public void bind(Tweet tweet) {
+            this.tweet = tweet;
+            setDefaultConditions();
+
             tvTimeStamp.setText(tweet.timeStamp);
             tvBody.setText(tweet.body);
             tvScreenName.setText(tweet.user.screenName);
+
+            etReply.setText("@" + tweet.user.screenName + " ");
+            etReply.setSelection(etReply.getText().length());
+
             Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
             Glide.with(context).load(tweet.imageUrl).into(ivTweetImage);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (view == btnReply) {
+                etReply.setVisibility(View.VISIBLE);
+                ibSend.setVisibility(View.VISIBLE);
+                btnReply.setVisibility(View.GONE);
+            } else if (view == ibSend) {
+                String replyContent = etReply.getText().toString();
+                if (replyContent.isEmpty()) {
+                    Toast.makeText(context, "Sorry, your reply cannot be empty", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (replyContent.length() > MAX_TWEET_LENGTH) {
+                    Toast.makeText(context, "Sorry, your reply is too long", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                TwitterClient client = TwitterApp.getRestClient(context);
+
+                // Make an API call to Twitter to publish the reply
+                client.publishReply(replyContent, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Headers headers, JSON json) {
+                        Log.i(TAG, "onSuccess reply");
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                        Log.e(TAG, "onFailure reply", throwable);
+                    }
+                }, tweet.id);
+                hideKeyboard(view);
+                setDefaultConditions();
+            } else {
+                hideKeyboard(view);
+                setDefaultConditions();
+            }
+        }
+
+        public void setDefaultConditions() {
+            etReply.setText("@" + tweet.user.screenName + " ");
+            etReply.setVisibility(View.GONE);
+            ibSend.setVisibility(View.GONE);
+            btnReply.setVisibility(View.VISIBLE);
+        }
+
+        public void hideKeyboard(View view) {
+            InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 }
