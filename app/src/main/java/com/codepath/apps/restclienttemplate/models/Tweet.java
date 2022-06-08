@@ -1,5 +1,7 @@
 package com.codepath.apps.restclienttemplate.models;
 
+import com.codepath.apps.restclienttemplate.utilities.DateUtility;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +18,7 @@ public class Tweet {
     public String createdAt;
     public User user;
     public String imageUrl;
+    public String timeStamp;
 
     // Empty constructor needed by Parceler library
     public Tweet() {}
@@ -39,6 +42,8 @@ public class Tweet {
             }
         }
 
+        tweet.timeStamp = DateUtility.getRelativeTimeAgo(tweet.getCreatedAt());
+
         return tweet;
     }
 
@@ -48,5 +53,9 @@ public class Tweet {
             tweets.add(fromJson(jsonArray.getJSONObject(i)));
         }
         return tweets;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
     }
 }
