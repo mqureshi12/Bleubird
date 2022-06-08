@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -37,6 +38,8 @@ public class TimelineActivity extends AppCompatActivity {
     RecyclerView rvTweets;
     List<Tweet> tweets;
     TweetsAdapter adapter;
+    MenuItem miActionProgressItem;
+    Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,17 @@ public class TimelineActivity extends AppCompatActivity {
         // Recycler view setup: layout manager and adapter
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         rvTweets.setAdapter(adapter);
-        populateHomeTimeLine();
+
+        logoutButton = findViewById(R.id.button);
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showProgressBar();
+                onLogoutButton();
+                hideProgressBar();
+            }
+        });
 
         // Setting up the Swipe Refresh Layout
         swipeContainer = findViewById(R.id.swipeContainer);
@@ -64,8 +77,9 @@ public class TimelineActivity extends AppCompatActivity {
                 fetchTimelineAsync(0);
             }
         });
-
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright);
+
+        populateHomeTimeLine();
     }
 
     public void fetchTimelineAsync(int page) {
@@ -141,7 +155,7 @@ public class TimelineActivity extends AppCompatActivity {
         });
     }
 
-    public void onLogoutButton(View view) {
+    void onLogoutButton() {
         // Forget who's logged in
         TwitterApp.getRestClient(this).clearAccessToken();
 
@@ -150,5 +164,24 @@ public class TimelineActivity extends AppCompatActivity {
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // This makes sure the back botton won't work
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // Store instance of the menu item containing progress
+        miActionProgressItem = menu.findItem(R.id.miActionProgress);
+
+        // Return to finish
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    public void showProgressBar() {
+        // Show progress item
+        miActionProgressItem.setVisible(true);
+    }
+
+    public void hideProgressBar() {
+        // Hide progress item
+        miActionProgressItem.setVisible(false);
     }
 }
