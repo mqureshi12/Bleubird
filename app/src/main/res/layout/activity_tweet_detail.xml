@@ -180,4 +180,5 @@
                 app:srcCompat="@drawable/ic_vector_heart" />
         </RelativeLayout>
     </ScrollView>
+
 </RelativeLayout>

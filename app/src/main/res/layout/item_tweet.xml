@@ -140,4 +140,5 @@
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/ic_vector_retweet" />
+
 </RelativeLayout>

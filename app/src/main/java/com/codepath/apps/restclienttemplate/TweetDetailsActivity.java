@@ -33,7 +33,6 @@ public class TweetDetailsActivity extends AppCompatActivity {
     TextView tvName;
     TextView tvRetweetCount;
     TextView tvLikeCount;
-//    ImageButton btnReply;
     ImageButton ibLikeEmpty;
     ImageButton ibLike;
 
@@ -57,17 +56,10 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvRetweetCount = findViewById(R.id.tvRetweetCount);
         tvLikeCount = findViewById(R.id.tvLikeCount);
 
-//        btnReply = findViewById(R.id.btnReply);
         ibLikeEmpty = findViewById(R.id.ibLikeEmpty);
         ibLike = findViewById(R.id.ibLike);
         ibLike.setVisibility(View.GONE);
 
-//        btnReply.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
         ibLikeEmpty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

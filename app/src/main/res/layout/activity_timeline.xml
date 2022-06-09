@@ -21,7 +21,6 @@
             android:layout_marginStart="290dp"
             android:text="Logout"
             app:layout_scrollFlags="scroll|enterAlways" />
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
