@@ -49,8 +49,8 @@
                 android:layout_marginEnd="10dp"
                 android:autoLink="all"
                 android:linksClickable="true"
-                android:textSize="24sp"
                 android:textColor="@android:color/white"
+                android:textSize="24sp"
                 tools:text="This is my tweet!!" />
 
             <TextView
@@ -104,33 +104,63 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:textColor="@android:color/white"
                 android:layout_marginBottom="10dp"
+                android:textColor="@android:color/white"
                 tools:text="21 Retweets" />
 
-            <!--    <ImageButton-->
-            <!--        android:id="@+id/btnReply"-->
-            <!--        android:layout_width="20dp"-->
-            <!--        android:layout_height="20dp"-->
-            <!--        android:layout_below="@id/tvLikeCount"-->
-            <!--        android:layout_alignParentStart="true"-->
-            <!--        android:layout_marginStart="150dp"-->
-            <!--        android:layout_marginTop="10dp"-->
-            <!--        android:background="@android:color/transparent"-->
-            <!--        android:scaleType="fitCenter"-->
-            <!--        android:src="@drawable/ic_vector_compose" />-->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/tvLikeCount"
+                android:layout_marginStart="-2dp"
+                android:layout_marginBottom="36dp"
+                android:background="@color/inline_action"></androidx.appcompat.widget.Toolbar>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:background="@color/inline_action"></androidx.appcompat.widget.Toolbar>
+
+            <!--Aesthetic use only for now, but the like buttons below work, completing the stretch goal-->
+            <ImageButton
+                android:id="@+id/btnReply"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@id/tvLikeCount"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_vector_compose_dm_fab" />
+
+            <!--Aesthetic use only for now, but the like buttons below work, completing the stretch goal-->
+            <ImageButton
+                android:id="@+id/btnRetweet"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@id/tvLikeCount"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_vector_retweet" />
 
             <ImageButton
                 android:id="@+id/ibLikeEmpty"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_below="@+id/ivMedia"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="36dp"
-                android:layout_marginRight="150dp"
+                android:layout_below="@+id/tvRetweetCount"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentEnd="false"
+                android:layout_marginStart="150dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_toEndOf="@+id/tvLikeCount"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/ic_vector_heart_stroke" />
@@ -139,13 +169,12 @@
                 android:id="@+id/ibLike"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_below="@+id/ivMedia"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="36dp"
-                android:layout_marginRight="150dp"
+                android:layout_below="@+id/tvRetweetCount"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentEnd="false"
+                android:layout_marginStart="150dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_toEndOf="@+id/tvLikeCount"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/ic_vector_heart" />
