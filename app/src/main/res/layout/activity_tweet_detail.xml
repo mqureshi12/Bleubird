@@ -116,7 +116,7 @@
         android:layout_toEndOf="@+id/tvLikeCount"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_vector_heart_stroke" />
+        app:srcCompat="@drawable/ic_vector_heart_stroke" />
 
     <ImageButton
         android:id="@+id/ibLike"
@@ -130,5 +130,5 @@
         android:layout_toEndOf="@+id/tvLikeCount"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_vector_heart" />
+        app:srcCompat="@drawable/ic_vector_heart" />
 </RelativeLayout>
