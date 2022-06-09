@@ -7,25 +7,33 @@
     android:layout_margin="5dp"
     android:visibility="visible">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/light_gray"></androidx.appcompat.widget.Toolbar>
+
     <ImageView
         android:id="@+id/ivProfileImage"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
+        android:layout_margin="8dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/tvScreenName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignTop="@+id/ivProfileImage"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/ivProfileImage"
-        tools:text="codepathuser1" />
+        android:textColor="@color/twitter_black"
+        android:textStyle="bold"
+        tools:text="Mohammad Qureshi" />
 
     <TextView
         android:id="@+id/timestamp"
@@ -33,9 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:text="TextView" />
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="6h" />
 
     <TextView
         android:id="@+id/tvBody"
@@ -44,32 +52,37 @@
         android:layout_below="@+id/tvScreenName"
         android:layout_marginStart="5dp"
         android:layout_marginTop="2dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:layout_toEndOf="@+id/ivProfileImage"
-        tools:text="This is my tweet!"
-        android:autoLink="all"/>
+        android:autoLink="all"
+        android:textColor="@color/twitter_black"
+        tools:text="This is my tweet!" />
 
     <ImageView
         android:id="@+id/ivTweetImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tvBody"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/tvBody"
-        app:layout_constraintTop_toBottomOf="@+id/tvBody"
-        app:layout_constraintVertical_bias="1.0"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/tvBody"
+        android:layout_alignStart="@+id/tvBody"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:scaleType="fitXY"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <Button
         android:id="@+id/btnReply"
-        android:layout_width="70dp"
-        android:layout_height="40dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_below="@+id/etReply"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="false"
-        android:text="Reply"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
+        android:background="#00000000"
+        android:src="@drawable/ic_vector_compose"
         android:textSize="10sp" />
 
     <EditText
@@ -79,6 +92,7 @@
         android:layout_below="@+id/ivTweetImage"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="16dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:hint="Your reply"
         android:inputType="textMultiLine" />
@@ -89,5 +103,6 @@
         android:layout_height="40dp"
         android:layout_alignTop="@+id/etReply"
         android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
         app:srcCompat="@android:drawable/ic_menu_send" />
 </RelativeLayout>

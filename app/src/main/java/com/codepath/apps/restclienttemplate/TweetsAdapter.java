@@ -26,6 +26,8 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 import java.util.List;
 
 import okhttp3.Headers;
@@ -119,9 +121,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             etReply.setText("@" + tweet.user.screenName + " ");
             etReply.setSelection(etReply.getText().length());
 
-            Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
+            Glide.with(context).load(tweet.user.profileImageUrl).transform(new RoundedCornersTransformation(100, 1)).into(ivProfileImage);
             if(tweet.imageUrl != null) {
-                Glide.with(context).load(tweet.imageUrl).into(ivTweetImage);
+                Glide.with(context).load(tweet.imageUrl).transform(new RoundedCornersTransformation(30, 10)).into(ivTweetImage);
             } else {
                 ivTweetImage.setVisibility(View.GONE);
             }
@@ -182,6 +184,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             etReply.setVisibility(View.GONE);
             ibSend.setVisibility(View.GONE);
             btnReply.setVisibility(View.VISIBLE);
+            btnReply.setBackgroundResource(R.drawable.ic_vector_compose);
         }
 
         public void hideKeyboard(View view) {

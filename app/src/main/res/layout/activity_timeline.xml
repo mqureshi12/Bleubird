@@ -9,15 +9,17 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/button">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTweets"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/logoutButton"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:clipToPadding="false"
+            android:paddingBottom="60dp" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -27,6 +29,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:text="Logout"
-        app:showAsAction="always" />
+        android:layout_marginRight="5dp"
+        android:text="Logout" />
 </RelativeLayout>
