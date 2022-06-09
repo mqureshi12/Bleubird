@@ -118,7 +118,11 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             etReply.setSelection(etReply.getText().length());
 
             Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
-            Glide.with(context).load(tweet.imageUrl).into(ivTweetImage);
+            if(tweet.imageUrl != null) {
+                Glide.with(context).load(tweet.imageUrl).into(ivTweetImage);
+            } else {
+                ivTweetImage.setVisibility(View.GONE);
+            }
         }
 
         @Override
@@ -162,6 +166,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
         public void setDefaultConditions() {
             etReply.setText("@" + tweet.user.screenName + " ");
+            etReply.setSelection(etReply.getText().length());
             etReply.setVisibility(View.GONE);
             ibSend.setVisibility(View.GONE);
             btnReply.setVisibility(View.VISIBLE);

@@ -42,16 +42,24 @@ public class TwitterClient extends OAuthBaseClient {
 				String.format(REST_CALLBACK_URL_TEMPLATE, context.getString(R.string.intent_host),
 						context.getString(R.string.intent_scheme), context.getPackageName(), FALLBACK_URL));
 	}
-	// CHANGE THIS
-	// DEFINE METHODS for different API endpoints here
+
 	public void getHomeTimeline(JsonHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("statuses/home_timeline.json");
 		// Can specify query string params directly or through RequestParams.
 		RequestParams params = new RequestParams();
+		params.put("count", 25);
+		//params.put("since_id", 1);
 		params.put("tweet_mode", "extended");
-		params.put("format", "json");
-		params.put("count", "25");
-		params.put("since_id", "1");
+		client.get(apiUrl, params, handler);
+	}
+
+	public void appendHomeTimeline(long maxId, JsonHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/home_timeline.json");
+		// Can specify query string params directly or through RequestParams.
+		RequestParams params = new RequestParams();
+		params.put("count", 25);
+		params.put("max_id", maxId);
+		params.put("tweet_mode", "extended");
 		client.get(apiUrl, params, handler);
 	}
 
@@ -70,16 +78,6 @@ public class TwitterClient extends OAuthBaseClient {
 		RequestParams params = new RequestParams();
 		params.put("status", replyContent);
 		params.put("in_reply_to_status_id", tweetID);
-		//params.put("auto_populate_reply_metadata", true);
 		client.post(apiUrl, params, replyContent, handler);
 	}
-
-	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
-	 * 	  i.e getApiUrl("statuses/home_timeline.json");
-	 * 2. Define the parameters to pass to the request (query or body)
-	 *    i.e RequestParams params = new RequestParams("foo", "bar");
-	 * 3. Define the request method and make a call to the client
-	 *    i.e client.get(apiUrl, params, handler);
-	 *    i.e client.post(apiUrl, params, handler);
-	 */
 }
