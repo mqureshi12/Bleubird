@@ -20,6 +20,9 @@ public class Tweet {
     public String imageUrl;
     public String timeStamp;
     public String id;
+    public int retweetCount;
+    public int likeCount;
+    public boolean favorited;
 
     // Empty constructor needed by Parceler library
     public Tweet() {}
@@ -47,6 +50,9 @@ public class Tweet {
 
         tweet.timeStamp = DateUtility.getRelativeTimeAgo(tweet.getCreatedAt());
         tweet.id = jsonObject.getString("id");
+        tweet.retweetCount = jsonObject.getInt("retweet_count");
+        tweet.likeCount = jsonObject.getInt("favorite_count");
+        tweet.favorited = jsonObject.getBoolean("favorited");
         return tweet;
     }
 
