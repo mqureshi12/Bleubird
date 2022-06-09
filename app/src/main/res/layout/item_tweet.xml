@@ -13,7 +13,7 @@
         android:layout_height="1dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:background="@color/light_gray"></androidx.appcompat.widget.Toolbar>
+        android:background="@color/inline_action"></androidx.appcompat.widget.Toolbar>
 
     <ImageView
         android:id="@+id/ivProfileImage"
@@ -31,7 +31,7 @@
         android:layout_alignTop="@+id/ivProfileImage"
         android:layout_marginStart="5dp"
         android:layout_toEndOf="@+id/ivProfileImage"
-        android:textColor="@color/twitter_black"
+        android:textColor="@android:color/white"
         android:textStyle="bold"
         tools:text="Mohammad Qureshi" />
 
@@ -43,6 +43,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:textColor="@color/inline_action"
         android:text="6h" />
 
     <TextView
@@ -56,7 +57,7 @@
         android:layout_marginBottom="8dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:autoLink="all"
-        android:textColor="@color/twitter_black"
+        android:textColor="@android:color/white"
         tools:text="This is my tweet!" />
 
     <ImageView
@@ -79,11 +80,11 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="false"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
         android:background="#00000000"
-        app:srcCompat="@drawable/ic_vector_compose"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+        app:srcCompat="@drawable/ic_vector_compose_dm_fab" />
 
     <EditText
         android:id="@+id/etReply"

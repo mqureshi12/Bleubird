@@ -184,7 +184,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             etReply.setVisibility(View.GONE);
             ibSend.setVisibility(View.GONE);
             btnReply.setVisibility(View.VISIBLE);
-            btnReply.setBackgroundResource(R.drawable.ic_vector_compose);
+            btnReply.setBackgroundResource(R.drawable.ic_vector_compose_dm_fab);
         }
 
         public void hideKeyboard(View view) {

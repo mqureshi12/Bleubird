@@ -12,8 +12,10 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        android:textColorHint="@color/inline_action"
         app:counterEnabled="true"
-        app:counterMaxLength="280">
+        app:counterMaxLength="280"
+        app:counterTextColor="@android:color/white">
 
         <EditText
             android:id="@+id/etCompose"
@@ -28,6 +30,7 @@
             android:gravity="start|top"
             android:hint="What's happening?"
             android:inputType="textMultiLine"
+            android:textColor="@android:color/white"
             android:minLines="5" />
 
         <Button

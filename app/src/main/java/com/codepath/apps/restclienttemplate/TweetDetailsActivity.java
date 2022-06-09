@@ -45,6 +45,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.twitter_blue)));
         Objects.requireNonNull(getSupportActionBar()).setTitle("Details");
+        getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.twitter_dark));
 
         ivProfileImage = findViewById(R.id.ivProfileImage);
         ivTweetImage = findViewById(R.id.ivMedia);

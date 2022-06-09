@@ -35,6 +35,7 @@ public class ComposeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
+        getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.twitter_dark));
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.twitter_blue)));
         Objects.requireNonNull(getSupportActionBar()).setTitle("Compose");
         client = TwitterApp.getRestClient(this);
