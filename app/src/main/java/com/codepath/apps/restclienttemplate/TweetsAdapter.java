@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.utilities.DateUtility;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -123,7 +124,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
             Glide.with(context).load(tweet.user.profileImageUrl).transform(new RoundedCornersTransformation(100, 1)).into(ivProfileImage);
             if(tweet.imageUrl != null) {
-                Glide.with(context).load(tweet.imageUrl).transform(new RoundedCornersTransformation(30, 10)).into(ivTweetImage);
+                Glide.with(context).load(tweet.imageUrl).centerCrop().transform(new RoundedCornersTransformation(30, 10)).override(Target.SIZE_ORIGINAL).into(ivTweetImage);
             } else {
                 ivTweetImage.setVisibility(View.GONE);
             }

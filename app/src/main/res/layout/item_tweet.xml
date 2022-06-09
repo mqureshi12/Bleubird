@@ -62,14 +62,15 @@
 
     <ImageView
         android:id="@+id/ivTweetImage"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="319dp"
+        android:layout_height="202dp"
         android:layout_below="@id/tvBody"
         android:layout_alignStart="@+id/tvBody"
+        android:layout_marginStart="-4dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:layout_toEndOf="@+id/ivProfileImage"
-        android:scaleType="fitXY"
+        android:scaleType="fitStart"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <Button
@@ -77,11 +78,11 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_below="@+id/etReply"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="false"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
         android:background="#00000000"
         android:textSize="10sp"
         app:srcCompat="@drawable/ic_vector_compose_dm_fab" />
@@ -96,6 +97,7 @@
         android:layout_marginEnd="16dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:hint="Your reply"
+        android:textColor="@android:color/white"
         android:inputType="textMultiLine" />
 
     <ImageButton
