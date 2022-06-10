@@ -95,6 +95,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         ImageButton ibSend;
         ImageButton ibLikeEmpty;
         ImageButton ibLike;
+        ImageButton ibRetweet;
+        ImageButton ibRetweetEmpty;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -105,6 +107,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvTimeStamp = itemView.findViewById(R.id.timestamp);
             ibLikeEmpty = itemView.findViewById(R.id.ibLikeEmpty);
             ibLike = itemView.findViewById(R.id.ibLike);
+            ibRetweetEmpty = itemView.findViewById(R.id.ibRetweetEmpty);
+            ibRetweet = itemView.findViewById(R.id.ibRetweet);
 
             etReply = itemView.findViewById(R.id.etReply);
             btnReply = itemView.findViewById(R.id.btnReply);
@@ -115,6 +119,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             itemView.setOnClickListener(this);
             ibLikeEmpty.setOnClickListener(this);
             ibLike.setOnClickListener(this);
+            ibRetweetEmpty.setOnClickListener(this);
+            ibRetweet.setOnClickListener(this);
         }
 
         public void bind(Tweet tweet) {
@@ -195,6 +201,34 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 }, tweet.id);
                 ibLike.setVisibility(View.GONE);
                 ibLikeEmpty.setVisibility(View.VISIBLE);
+            } else if(view == ibRetweetEmpty) {
+                client.retweetTweet(new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Headers headers, JSON json) {
+                        Log.i("DEBUG", "Retweeted tweet");
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                        Log.d("DEBUG", "Retweet tweet error: " + throwable.toString());
+                    }
+                }, tweet.id);
+                ibRetweetEmpty.setVisibility(View.GONE);
+                ibRetweet.setVisibility(View.VISIBLE);
+            } else if(view == ibRetweet) {
+                client.unretweetTweet(new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Headers headers, JSON json) {
+                        Log.i("DEBUG", "Unretweeted tweet");
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                        Log.d("DEBUG", "Unretweet tweet error: " + throwable.toString());
+                    }
+                }, tweet.id);
+                ibRetweet.setVisibility(View.GONE);
+                ibRetweetEmpty.setVisibility(View.VISIBLE);
             } else {
                 hideKeyboard(view);
                 setDefaultConditions();
@@ -203,9 +237,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 if (position != RecyclerView.NO_POSITION) {
                     Tweet tweet = tweets.get(position);
                     Intent intent = new Intent(context, TweetDetailsActivity.class);
-                    // serialize the movie using parceler, use its short name as a key
                     intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
-                    // show the activity
                     context.startActivity(intent);
                 }
             }
@@ -218,13 +250,35 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             ibSend.setVisibility(View.GONE);
             btnReply.setVisibility(View.VISIBLE);
             btnReply.setBackgroundResource(R.drawable.ic_vector_compose_dm_fab);
-            ibLike.setVisibility(View.GONE);
-            ibLikeEmpty.setVisibility(View.VISIBLE);
+            setLikedStatus();
+            setRetweetedStatus();
         }
 
         public void hideKeyboard(View view) {
             InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
+        public void setLikedStatus() {
+            if(tweet.favorited) {
+                ibLike.setVisibility(View.VISIBLE);
+                ibLikeEmpty.setVisibility(View.GONE);
+            }
+            else {
+                ibLike.setVisibility(View.GONE);
+                ibLikeEmpty.setVisibility(View.VISIBLE);
+            }
+        }
+
+        public void setRetweetedStatus() {
+            if(tweet.retweeted) {
+                ibRetweet.setVisibility(View.VISIBLE);
+                ibRetweetEmpty.setVisibility(View.GONE);
+            }
+            else {
+                ibRetweet.setVisibility(View.GONE);
+                ibRetweetEmpty.setVisibility(View.VISIBLE);
+            }
         }
     }
 }
