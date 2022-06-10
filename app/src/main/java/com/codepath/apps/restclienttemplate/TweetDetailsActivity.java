@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.apps.restclienttemplate.databinding.ActivityComposeBinding;
+import com.codepath.apps.restclienttemplate.databinding.ActivityTweetDetailBinding;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
@@ -38,31 +40,34 @@ public class TweetDetailsActivity extends AppCompatActivity {
     ImageButton ibRetweetEmpty;
     ImageButton ibRetweet;
 
+    private ActivityTweetDetailBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityTweetDetailBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_tweet_detail);
+        setContentView(binding.getRoot());
 
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.twitter_blue)));
         Objects.requireNonNull(getSupportActionBar()).setTitle("Details");
         getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.twitter_dark));
 
-        ivProfileImage = findViewById(R.id.ivProfileImage);
-        ivTweetImage = findViewById(R.id.ivMedia);
-        tvScreenName = findViewById(R.id.tvScreenName);
-        tvName = findViewById(R.id.tvName);
-        tvBody = findViewById(R.id.tvBody);
-        tvTimeStamp = findViewById(R.id.tvTimeStamp);
+        ivProfileImage = binding.ivProfileImage;
+        ivTweetImage = binding.ivMedia;
+        tvScreenName = binding.tvScreenName;
+        tvName = binding.tvName;
+        tvBody = binding.tvBody;
+        tvTimeStamp = binding.tvTimeStamp;
 
-        tvRetweetCount = findViewById(R.id.tvRetweetCount);
-        tvLikeCount = findViewById(R.id.tvLikeCount);
+        tvRetweetCount = binding.tvRetweetCount;
+        tvLikeCount = binding.tvLikeCount;
 
-        ibLikeEmpty = findViewById(R.id.ibLikeEmpty);
-        ibLike = findViewById(R.id.ibLike);
+        ibLikeEmpty = binding.ibLikeEmpty;
+        ibLike = binding.ibLike;
         ibLike.setVisibility(View.GONE);
-        ibRetweetEmpty = findViewById(R.id.ibRetweetEmpty);
-        ibRetweet = findViewById(R.id.ibRetweet);
+        ibRetweetEmpty = binding.ibRetweetEmpty;
+        ibRetweet = binding.ibRetweet;
 
         tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
 

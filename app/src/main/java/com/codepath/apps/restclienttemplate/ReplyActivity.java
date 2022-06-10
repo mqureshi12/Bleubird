@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.codepath.apps.restclienttemplate.databinding.ActivityComposeBinding;
+import com.codepath.apps.restclienttemplate.databinding.ActivityReplyBinding;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
@@ -25,6 +27,7 @@ public class ReplyActivity extends AppCompatActivity {
 
     public static final String TAG = "ReplyActivity";
     public static final int MAX_TWEET_LENGTH = 280;
+    private ActivityReplyBinding binding;
 
     TextView tvOriginalAuthor;
     TextView tvCharacterCounter;
@@ -37,14 +40,16 @@ public class ReplyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityReplyBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_reply);
+        setContentView(binding.getRoot());
 
         client = TwitterApp.getRestClient(this);
 
-        tvOriginalAuthor = findViewById(R.id.tvOriginalAuthor);
-        tvCharacterCounter = findViewById(R.id.tvCharacterCounter);
-        etReply = findViewById(R.id.etReply);
-        btnTweet = findViewById(R.id.btnTweet);
+        tvOriginalAuthor = binding.tvOriginalAuthor;
+        tvCharacterCounter = binding.tvCharacterCounter;
+        etReply = binding.etReply;
+        btnTweet = binding.btnTweet;
 
         Bundle extras = getIntent().getExtras();
         originalAuthor = extras.getString("original_author");
