@@ -125,7 +125,7 @@
                 android:layout_alignParentBottom="true"
                 android:background="@color/inline_action"></androidx.appcompat.widget.Toolbar>
 
-            <!--Aesthetic use only for now, but the like buttons below work, completing the stretch goal-->
+            <!--Aesthetic use only for now, but the like buttons and retweet buttons below work, completing the stretch goal-->
             <ImageButton
                 android:id="@+id/btnShare"
                 android:layout_width="20dp"
@@ -138,7 +138,7 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_vector_share1" />
 
-            <!--Aesthetic use only for now, but the like buttons below work, completing the stretch goal-->
+            <!--Aesthetic use only for now, but the like buttons and retweet buttons below work, completing the stretch goal-->
             <ImageButton
                 android:id="@+id/btnReply"
                 android:layout_width="20dp"
@@ -151,9 +151,8 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_vector_compose_dm_fab" />
 
-            <!--Aesthetic use only for now, but the like buttons below work, completing the stretch goal-->
             <ImageButton
-                android:id="@+id/btnRetweet"
+                android:id="@+id/ibRetweet"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_below="@id/tvLikeCount"
@@ -163,6 +162,18 @@
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_vector_retweet" />
+
+            <ImageButton
+                android:id="@+id/ibRetweetEmpty"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@id/tvLikeCount"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="150dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_vector_retweet_before" />
 
             <ImageButton
                 android:id="@+id/ibLikeEmpty"

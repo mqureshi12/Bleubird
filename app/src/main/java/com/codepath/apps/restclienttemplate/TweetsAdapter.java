@@ -93,6 +93,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         EditText etReply;
         Button btnReply;
         ImageButton ibSend;
+        ImageButton ibLikeEmpty;
+        ImageButton ibLike;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -101,6 +103,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvTimeStamp = itemView.findViewById(R.id.timestamp);
+            ibLikeEmpty = itemView.findViewById(R.id.ibLikeEmpty);
+            ibLike = itemView.findViewById(R.id.ibLike);
 
             etReply = itemView.findViewById(R.id.etReply);
             btnReply = itemView.findViewById(R.id.btnReply);
@@ -109,6 +113,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             btnReply.setOnClickListener(this);
             ibSend.setOnClickListener(this);
             itemView.setOnClickListener(this);
+            ibLikeEmpty.setOnClickListener(this);
+            ibLike.setOnClickListener(this);
         }
 
         public void bind(Tweet tweet) {
@@ -132,6 +138,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
         @Override
         public void onClick(View view) {
+            TwitterClient client = TwitterApp.getRestClient(context);
             if (view == btnReply) {
                 etReply.setVisibility(View.VISIBLE);
                 ibSend.setVisibility(View.VISIBLE);
@@ -146,9 +153,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     Toast.makeText(context, "Sorry, your reply is too long", Toast.LENGTH_LONG).show();
                     return;
                 }
-
-                TwitterClient client = TwitterApp.getRestClient(context);
-
                 // Make an API call to Twitter to publish the reply
                 client.publishReply(replyContent, new JsonHttpResponseHandler() {
                     @Override
@@ -163,6 +167,34 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 }, tweet.id);
                 hideKeyboard(view);
                 setDefaultConditions();
+            } else if(view == ibLikeEmpty) {
+                client.likeTweet(new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Headers headers, JSON json) {
+                        Log.i("DEBUG", "Liked tweet");
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                        Log.d("DEBUG", "Like tweet error: " + throwable.toString());
+                    }
+                }, tweet.id);
+                ibLikeEmpty.setVisibility(View.GONE);
+                ibLike.setVisibility(View.VISIBLE);
+            } else if(view == ibLike) {
+                client.unlikeTweet(new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Headers headers, JSON json) {
+                        Log.i("DEBUG", "Unliked tweet");
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                        Log.d("DEBUG", "Unlike tweet error: " + throwable.toString());
+                    }
+                }, tweet.id);
+                ibLike.setVisibility(View.GONE);
+                ibLikeEmpty.setVisibility(View.VISIBLE);
             } else {
                 hideKeyboard(view);
                 setDefaultConditions();
@@ -186,6 +218,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             ibSend.setVisibility(View.GONE);
             btnReply.setVisibility(View.VISIBLE);
             btnReply.setBackgroundResource(R.drawable.ic_vector_compose_dm_fab);
+            ibLike.setVisibility(View.GONE);
+            ibLikeEmpty.setVisibility(View.VISIBLE);
         }
 
         public void hideKeyboard(View view) {

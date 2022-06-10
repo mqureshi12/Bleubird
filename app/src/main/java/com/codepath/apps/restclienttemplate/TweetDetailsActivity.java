@@ -35,6 +35,8 @@ public class TweetDetailsActivity extends AppCompatActivity {
     TextView tvLikeCount;
     ImageButton ibLikeEmpty;
     ImageButton ibLike;
+    ImageButton ibRetweetEmpty;
+    ImageButton ibRetweet;
 
 
     @Override
@@ -59,6 +61,93 @@ public class TweetDetailsActivity extends AppCompatActivity {
         ibLikeEmpty = findViewById(R.id.ibLikeEmpty);
         ibLike = findViewById(R.id.ibLike);
         ibLike.setVisibility(View.GONE);
+        ibRetweetEmpty = findViewById(R.id.ibRetweetEmpty);
+        ibRetweet = findViewById(R.id.ibRetweet);
+
+        tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
+
+        if(tweet.favorited) {
+            ibLike.setVisibility(View.VISIBLE);
+            ibLikeEmpty.setVisibility(View.GONE);
+        }
+        else {
+            ibLike.setVisibility(View.GONE);
+            ibLikeEmpty.setVisibility(View.VISIBLE);
+        }
+
+        if(tweet.retweeted) {
+            ibRetweet.setVisibility(View.VISIBLE);
+            ibRetweetEmpty.setVisibility(View.GONE);
+        }
+        else {
+            ibRetweet.setVisibility(View.GONE);
+            ibRetweetEmpty.setVisibility(View.VISIBLE);
+        }
+
+        ibRetweetEmpty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                client.retweetTweet(new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Headers headers, JSON json) {
+                        Log.i("DEBUG", "Retweeted tweet");
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                        Log.d("DEBUG", "Retweet error: " + throwable.toString());
+                    }
+                }, tweet.id);
+                ibLikeEmpty.setVisibility(View.GONE);
+                ibLike.setVisibility(View.VISIBLE);
+            }
+        });
+
+        ibRetweetEmpty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                client.retweetTweet(new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Headers headers, JSON json) {
+                        Log.i("DEBUG", "Retweeted tweet");
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                        Log.d("DEBUG", "Retweet tweet error: " + throwable.toString());
+                    }
+                }, tweet.id);
+                ibRetweetEmpty.setVisibility(View.GONE);
+                ibRetweet.setVisibility(View.VISIBLE);
+
+                tweet.retweetCount++;
+                tweet.retweeted = true;
+                tvRetweetCount.setText(tweet.retweetCount + " Retweets");
+
+            }
+        });
+        ibRetweet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                client.unretweetTweet(new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Headers headers, JSON json) {
+                        Log.i("DEBUG", "Unretweeted tweet");
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                        Log.d("DEBUG", "Unretweet tweet error: " + throwable.toString());
+                    }
+                }, tweet.id);
+                ibRetweet.setVisibility(View.GONE);
+                ibRetweetEmpty.setVisibility(View.VISIBLE);
+
+                tweet.retweetCount--;
+                tweet.retweeted = false;
+                tvRetweetCount.setText(tweet.retweetCount + " Retweets");
+            }
+        });
 
         ibLikeEmpty.setOnClickListener(new View.OnClickListener() {
             @Override
