@@ -3,6 +3,7 @@ package com.codepath.apps.restclienttemplate;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,6 +21,8 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.json.JSONException;
 import org.parceler.Parcels;
+
+import java.util.Objects;
 
 import okhttp3.Headers;
 
@@ -40,6 +43,8 @@ public class ReplyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.twitter_blue)));
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
         binding = ActivityReplyBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_reply);
         setContentView(binding.getRoot());
