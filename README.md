@@ -45,8 +45,6 @@ Here's a walkthrough of implemented user stories:
 
 <img src=app/src/main/res/demo.gif title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-GIF created with [Kap](https://getkap.co/).
-
 ## Open-source libraries used
 
 - [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
