@@ -79,7 +79,7 @@
         android:layout_height="20dp"
         android:layout_below="@+id/etReply"
         android:layout_alignParentBottom="false"
-        android:layout_marginStart="135dp"
+        android:layout_marginStart="200dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
         android:layout_toEndOf="@+id/ivProfileImage"
@@ -140,5 +140,21 @@
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/ic_vector_retweet" />
+
+    <!-- Aesthetic only for now, but the reply button and feature above works, completing the required goal-->
+    <ImageButton
+        android:id="@+id/ibShare"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/etReply"
+        android:layout_alignParentBottom="false"
+        android:layout_marginStart="135dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:textSize="10sp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/ic_vector_share1" />
 
 </RelativeLayout>
