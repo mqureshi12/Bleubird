@@ -90,13 +90,11 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvScreenName;
         TextView tvTimeStamp;
         Tweet tweet;
-        EditText etReply;
-        Button btnReply;
-        ImageButton ibSend;
         ImageButton ibLikeEmpty;
         ImageButton ibLike;
         ImageButton ibRetweet;
         ImageButton ibRetweetEmpty;
+        ImageButton ibReply;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -109,13 +107,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             ibLike = itemView.findViewById(R.id.ibLike);
             ibRetweetEmpty = itemView.findViewById(R.id.ibRetweetEmpty);
             ibRetweet = itemView.findViewById(R.id.ibRetweet);
+            ibReply = itemView.findViewById(R.id.ibReply);
 
-            etReply = itemView.findViewById(R.id.etReply);
-            btnReply = itemView.findViewById(R.id.btnReply);
-            ibSend = itemView.findViewById(R.id.ibSend);
-
-            btnReply.setOnClickListener(this);
-            ibSend.setOnClickListener(this);
+            ibReply.setOnClickListener(this);
             itemView.setOnClickListener(this);
             ibLikeEmpty.setOnClickListener(this);
             ibLike.setOnClickListener(this);
@@ -131,9 +125,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody.setText(tweet.body);
             tvScreenName.setText(tweet.user.screenName);
 
-            etReply.setText("@" + tweet.user.screenName + " ");
-            etReply.setSelection(etReply.getText().length());
-
             Glide.with(context).load(tweet.user.profileImageUrl).transform(new RoundedCornersTransformation(100, 1)).into(ivProfileImage);
             if(tweet.imageUrl != null) {
                 Glide.with(context).load(tweet.imageUrl).centerCrop().transform(new RoundedCornersTransformation(30, 10)).override(Target.SIZE_ORIGINAL).into(ivTweetImage);
@@ -145,34 +136,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         @Override
         public void onClick(View view) {
             TwitterClient client = TwitterApp.getRestClient(context);
-            if (view == btnReply) {
-                etReply.setVisibility(View.VISIBLE);
-                ibSend.setVisibility(View.VISIBLE);
-                btnReply.setVisibility(View.GONE);
-            } else if (view == ibSend) {
-                String replyContent = etReply.getText().toString();
-                if (replyContent.isEmpty()) {
-                    Toast.makeText(context, "Sorry, your reply cannot be empty", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (replyContent.length() > MAX_TWEET_LENGTH) {
-                    Toast.makeText(context, "Sorry, your reply is too long", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                // Make an API call to Twitter to publish the reply
-                client.publishReply(replyContent, new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Headers headers, JSON json) {
-                        Log.i(TAG, "onSuccess reply");
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                        Log.e(TAG, "onFailure reply", throwable);
-                    }
-                }, tweet.id);
-                hideKeyboard(view);
-                setDefaultConditions();
+            if(view == ibReply) {
+                Intent intent = new Intent(context, ReplyActivity.class);
+                intent.putExtra("original_author", tweet.user.screenName);
+                context.startActivity(intent);
             } else if(view == ibLikeEmpty) {
                 client.likeTweet(new JsonHttpResponseHandler() {
                     @Override
@@ -244,12 +211,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         }
 
         public void setDefaultConditions() {
-            etReply.setText("@" + tweet.user.screenName + " ");
-            etReply.setSelection(etReply.getText().length());
-            etReply.setVisibility(View.GONE);
-            ibSend.setVisibility(View.GONE);
-            btnReply.setVisibility(View.VISIBLE);
-            btnReply.setBackgroundResource(R.drawable.ic_vector_compose_dm_fab);
             setLikedStatus();
             setRetweetedStatus();
         }

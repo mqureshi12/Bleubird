@@ -73,64 +73,42 @@
         android:scaleType="fitStart"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-    <Button
-        android:id="@+id/btnReply"
+    <ImageButton
+        android:id="@+id/ibReply"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_below="@+id/etReply"
+        android:layout_below="@+id/ivTweetImage"
         android:layout_alignParentBottom="false"
-        android:layout_marginStart="200dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:background="#00000000"
         android:textSize="10sp"
-        app:srcCompat="@drawable/ic_vector_compose_dm_fab" />
-
-    <EditText
-        android:id="@+id/etReply"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ivTweetImage"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="16dp"
-        android:layout_toEndOf="@+id/ivProfileImage"
-        android:hint="Your reply"
-        android:textColor="@android:color/white"
-        android:inputType="textMultiLine" />
-
-    <ImageButton
-        android:id="@+id/ibSend"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignTop="@+id/etReply"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        app:srcCompat="@android:drawable/ic_menu_send" />
+        app:srcCompat="@drawable/ic_vector_compose_dm_fab"/>
 
     <ImageButton
         android:id="@+id/ibLikeEmpty"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_below="@+id/etReply"
+        android:layout_below="@+id/ivTweetImage"
         android:layout_alignParentBottom="false"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="135dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
         android:layout_toEndOf="@+id/ivProfileImage"
-        android:textSize="10sp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
+        android:textSize="10sp"
         app:srcCompat="@drawable/ic_vector_heart_stroke" />
 
     <ImageButton
         android:id="@+id/ibLike"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_below="@+id/etReply"
+        android:layout_below="@+id/ivTweetImage"
         android:layout_alignParentBottom="false"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="135dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
         android:layout_toEndOf="@+id/ivProfileImage"
@@ -139,12 +117,11 @@
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/ic_vector_heart" />
 
-    <!-- Aesthetic only for now, but the reply button and feature above works, completing the required goal-->
     <ImageButton
         android:id="@+id/ibRetweetEmpty"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_below="@+id/etReply"
+        android:layout_below="@+id/ivTweetImage"
         android:layout_alignParentBottom="false"
         android:layout_marginStart="70dp"
         android:layout_marginTop="5dp"
@@ -159,7 +136,7 @@
         android:id="@+id/ibRetweet"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_below="@+id/etReply"
+        android:layout_below="@+id/ivTweetImage"
         android:layout_alignParentBottom="false"
         android:layout_marginStart="70dp"
         android:layout_marginTop="5dp"
@@ -175,9 +152,9 @@
         android:id="@+id/ibShare"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_below="@+id/etReply"
+        android:layout_below="@+id/ivTweetImage"
         android:layout_alignParentBottom="false"
-        android:layout_marginStart="135dp"
+        android:layout_marginStart="200dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
         android:layout_toEndOf="@+id/ivProfileImage"
